@@ -12,4 +12,4 @@ The project is divided by two folders in the root directory:
 - client: A React-Redux-based client application as the frontend
 - smart_contract: Solidity based smart contract app
 
-<em> Created by Azaz Ahamed Zoha</em>
+<em> Created by Azaz Ahamed Zoha</em>🧑‍🚀

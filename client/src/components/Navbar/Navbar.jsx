@@ -3,8 +3,16 @@ import { HiMenuAlt4 } from "react-icons/hi"
 import { AiOutlineClose } from "react-icons/ai"
 import logo from "../../images/logo-dark.svg"
 
-const NavbarItem = ({ title, classProps }) => {
-  return <li className={`mx-4 cursor-pointer ${classProps}`}>{title}</li>
+const NavbarItem = ({ title, classProps, route }) => {
+  return (
+    <li className={`mx-4 cursor-pointer ${classProps}`}>
+      {" "}
+      <a href={route} className="link">
+        {" "}
+        {title}
+      </a>
+    </li>
+  )
 }
 
 const LINKS = [
@@ -33,7 +41,10 @@ const LINKS = [
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = useState(false)
   return (
-    <nav className="w-full flex md:justify-center justify-between items-center p-4">
+    <nav
+      className="w-full flex md:justify-center justify-between items-center p-4"
+      // onClick={() => setToggleMenu(!toggleMenu)}
+    >
       <div className="md:flex-[0.5] flex-initial justify-center items-center">
         <img src={logo} alt="Zypto Logo" className="w-32 cursor-pointer" />
       </div>
@@ -42,6 +53,7 @@ const Navbar = () => {
           <NavbarItem
             key={item.title + index}
             title={item.title}
+            route={item.route}
             // classProps={index === 0 ? "text-blue-500" : "text-gray-500"}
           />
         ))}
@@ -68,7 +80,7 @@ const Navbar = () => {
         {toggleMenu && (
           <ul
             className="z-10 fixed top-0 -right-2 p-3 w-[70vw] h-screen shadow-2xl md:hidden list-none
-            flex flex-col justify-start items-end rounded-md blue-glassmorphism text-white animate-slide-in"
+            flex flex-col justify-start items-end rounded-md blue-glassmorphism text-white"
           >
             <li className="text-xl w-full my-2 ">
               <AiOutlineClose
@@ -81,7 +93,11 @@ const Navbar = () => {
               <NavbarItem
                 key={item.title + index}
                 title={item.title}
-                classProps={` my-2 text-lg`}
+                classProps={` 
+                my-2 text-2xl transition ease-in-out 
+                hover:-translate-y-1 hover:scale-110  duration-300 hover:p-5
+                hover:rounded-md
+                `}
               />
             ))}
           </ul>

@@ -2,6 +2,8 @@
 
 ### A Web 3.0 Project
 
+# Showcasing React front-end with Solidity smart-contract as a backend
+
 <br>
 Welcome to this project. <strong>Zypto</strong> is a modern Etherium smart-exchange platform built using React and Solidiy.
 

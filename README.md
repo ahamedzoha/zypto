@@ -18,4 +18,6 @@ What's done in react?
 
 What's done in Solidity?
 
+Libraries used:
+
 <em> Created by Azaz Ahamed Zoha</em>🧑‍🚀

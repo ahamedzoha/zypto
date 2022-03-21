@@ -1,15 +1,18 @@
-import React from "react"
+import { useContext } from "react"
 import { AiFillPlayCircle } from "react-icons/ai"
 import { SiEthereum } from "react-icons/si"
 import { BsInfoCircle } from "react-icons/bs"
-
+import { TransactionContext } from "../../context/TransactionContext"
 import Loader from "../Loader/Loader"
 
 const companyCommonStyles = `min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center 
 items-center border-[0.5px] border-gray-400 text-white`
 
 const Welcome = () => {
-  const connectWallet = () => {}
+  const { connectWallet, connectedAccount } = useContext(TransactionContext)
+  console.log(connectedAccount)
+
+  // const connectWallet = () => {}
   const handleSubmit = () => {}
   const handleChange = () => {}
 

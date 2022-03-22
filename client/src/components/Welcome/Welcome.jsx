@@ -9,12 +9,26 @@ const companyCommonStyles = `min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex jus
 items-center border-[0.5px] border-gray-400 text-white`
 
 const Welcome = () => {
-  const { connectWallet, connectedAccount } = useContext(TransactionContext)
+  const {
+    connectWallet,
+    connectedAccount,
+    formData,
+    handleChange,
+    sendTransaction,
+  } = useContext(TransactionContext)
+
   console.log(connectedAccount)
 
-  // const connectWallet = () => {}
-  const handleSubmit = () => {}
-  const handleChange = () => {}
+  const handleSubmit = (e) => {
+    const { addressTo, amount, keyword, message } = formData
+    e.preventDefault()
+
+    if (!addressTo || !amount || !keyword || !message) {
+      return
+    } else {
+      sendTransaction()
+    }
+  }
 
   return (
     <div className="flex w-full justify-center items-center">
@@ -27,7 +41,7 @@ const Welcome = () => {
             Explore the crypto world. Buy and sell cryptocurrencies easily on
             Krypto.
           </p>
-          {true && (
+          {!connectedAccount && (
             <button
               type="button"
               onClick={connectWallet}
@@ -69,7 +83,15 @@ const Welcome = () => {
               </div>
               <div>
                 <p className="text-white font-light text-sm">
-                  0x2646sdasd...asd
+                  {connectedAccount
+                    ? `${connectedAccount.slice(
+                        0,
+                        5
+                      )}...${connectedAccount.slice(
+                        connectedAccount.length - 5,
+                        connectedAccount.length
+                      )}`
+                    : "Account#"}
                 </p>
                 <p className="text-white font-semibold text-lg mt-1">
                   Ethereum

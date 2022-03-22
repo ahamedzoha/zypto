@@ -14,18 +14,28 @@ const getEthereumContract = () => {
     contractAbi,
     signer
   )
-
-  console.log({
-    provider,
-    signer,
-    transactionContract,
-  })
+  return transactionContract
 }
-
-// TODO: Utilize getEthereumContract()
 
 export const TransactionProvider = ({ children }) => {
   const [connectedAccount, setConnectedAccount] = useState(null)
+  const [formData, setFormdata] = useState({
+    addressTo: "",
+    amount: "",
+    keyword: "",
+    message: "",
+  })
+  const [loading, setLoading] = useState(false)
+  const [transactionCount, setTransactionCount] = useState(
+    localStorage.getItem("transactionCount")
+  )
+
+  const handleChange = (e, name) => {
+    setFormdata((prevState) => ({
+      ...prevState,
+      [name]: e.target.value,
+    }))
+  }
 
   const checkIfWalletIsConnected = async () => {
     try {
@@ -46,6 +56,46 @@ export const TransactionProvider = ({ children }) => {
     }
   }
 
+  const sendTransaction = async () => {
+    try {
+      if (!ethereum) return alert("Please install MetaMask")
+
+      const { addressTo, amount, keyword, message } = formData
+      const transactionContract = getEthereumContract()
+      const parsedAmount = ethers.utils.parseEther(amount)
+
+      await ethereum.request({
+        method: "eth_sendTransaction",
+        params: [
+          {
+            from: connectedAccount,
+            to: addressTo,
+            gas: "0x5208", //21000 Gwei
+            value: parsedAmount._hex,
+          },
+        ],
+      })
+
+      const transactionHash = await transactionContract.addToBlockchain(
+        addressTo,
+        parsedAmount,
+        message,
+        keyword
+      )
+      setLoading(true)
+      console.log(`Loading transaction ${transactionHash.hash}`)
+      await transactionHash.wait()
+      setLoading(false)
+      console.log(`Success Transaction ${transactionHash.hash} mined`)
+
+      const transactionCount = await transactionContract.getTransactionCount()
+      setTransactionCount(transactionCount.toNumber())
+    } catch (error) {
+      console.log(error)
+      throw new Error("No ethereum object")
+    }
+  }
+
   const connectWallet = async () => {
     try {
       if (!ethereum) return alert("Please install MetaMask")
@@ -60,8 +110,17 @@ export const TransactionProvider = ({ children }) => {
   useEffect(() => {
     checkIfWalletIsConnected()
   }, [])
+
   return (
-    <TransactionContext.Provider value={{ connectWallet, connectedAccount }}>
+    <TransactionContext.Provider
+      value={{
+        connectWallet,
+        connectedAccount,
+        formData,
+        handleChange,
+        sendTransaction,
+      }}
+    >
       {children}
     </TransactionContext.Provider>
   )

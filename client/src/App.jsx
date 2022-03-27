@@ -16,6 +16,7 @@ const App = () => {
         <Welcome />
       </div>
       <Services />
+      {/* TODO: Transactions and Footer */}
       {/* <Transactions /> */}
       {/* <Footer /> */}
     </div>

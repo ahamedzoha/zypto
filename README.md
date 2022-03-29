@@ -20,7 +20,7 @@ What's done in Solidity?
 
 Libraries used:
 
-### React
+#### React
 
 - Hardhat
 

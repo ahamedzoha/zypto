@@ -20,4 +20,8 @@ What's done in Solidity?
 
 Libraries used:
 
+### React
+
+- Hardhat
+
 <em> Created by Azaz Ahamed Zoha</em>🧑‍🚀

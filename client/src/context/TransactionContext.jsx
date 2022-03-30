@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react"
 import { ethers } from "ethers"
 import { contractAbi, contractAddress } from "../utils/constants"
 
+// TODO: Understand how to use the contract abi and address
+
 export const TransactionContext = React.createContext()
 
 const { ethereum } = window
